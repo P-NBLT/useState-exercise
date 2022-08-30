@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 const Scoreboard = (props) => {
-  const [score, setScore] = useState([0, 0, 0]);
   const names = ["Rein", "Maylis", "Gerrit"];
+  const [score, setScore] = useState(() => Array(names.length).fill(0));
 
   const decrement = (e) => {
     const copy = [...score];
