@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Scoreboard, InputPlayer } from "../index";
+import { Scoreboard, InputPlayer } from "../../index";
 
 function Player(props) {
   const [player, setPlayer] = useState(

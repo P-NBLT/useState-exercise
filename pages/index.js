@@ -1,7 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { InputPlayer, Player, Scoreboard } from "../component";
+import { Player } from "../component/";
+import { Pagination } from "../component/exercise2";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       </Head>
 
       <Player />
+      <Pagination />
     </div>
   );
 }
