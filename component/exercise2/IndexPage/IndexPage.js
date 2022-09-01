@@ -5,7 +5,6 @@ import Paragraph from "../Paragraph/Paragraph";
 const IndexPage = ({ children, ...props }) => {
   function UpdateActive(e) {
     let clickedElement = e.target.closest("div").dataset.id;
-
     props.fun.getUpdateActive(clickedElement);
   }
 

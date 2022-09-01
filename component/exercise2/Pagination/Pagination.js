@@ -13,23 +13,18 @@ const Pagination = (props) => {
   ]);
 
   const getUpdateActive = (current) => {
-    let indexes = [...page];
-
-    let test = indexes.findIndex((el) => el.state === true);
-    indexes[test].state = false;
-    setPage((current) => [...current, indexes]);
-
-    if (indexes[current].state === false) {
-      indexes[current].state = true;
-    }
-
-    setPage(indexes);
+    let copy = [...page];
+    let index = copy.findIndex((el) => el.state === true);
+    copy[index].state = false;
+    setPage((current) => [...current, copy]);
+    copy[current].state = true;
+    setPage(copy);
   };
 
   const backwards = () => {
     const copy = [...page];
     let activeIndex = copy.findIndex((el) => el.state == true);
-    console.log(copy[activeIndex].state, activeIndex);
+
     if (activeIndex > 0) {
       copy[activeIndex].state = false;
       copy[activeIndex - 1].state = true;
@@ -39,7 +34,7 @@ const Pagination = (props) => {
   const forward = () => {
     const copy = [...page];
     let activeIndex = copy.findIndex((el) => el.state == true);
-    console.log(copy[activeIndex].state, activeIndex);
+
     if (activeIndex < page.length - 1) {
       copy[activeIndex].state = false;
       copy[activeIndex + 1].state = true;
@@ -51,12 +46,9 @@ const Pagination = (props) => {
     <div style={{ display: "flex", columnGap: "10px", marginTop: "100px" }}>
       <button onClick={backwards}>{`<<`}</button>
       {page.map((el, idx) => {
-        let dataActive = false;
         let backgroundColor;
         let color;
-        if (idx == 0) {
-          dataActive = true;
-        }
+
         if (page[idx].state == true) {
           backgroundColor = "blue";
           color = "white";
@@ -70,7 +62,6 @@ const Pagination = (props) => {
             key={idx}
             page={el.idx}
             dataId={idx}
-            dataActive={dataActive}
             styles={{ backgroundColor, color }}
             fun={{ getUpdateActive }}
           >
