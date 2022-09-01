@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 const Scoreboard = (props) => {
-  console.log(props.pool);
-  const names = props.pool.map((el) => el.name);
-  const score = props.pool.map((el) => el.score);
   function setDecrement(e) {
     props.fun.decrement(e.target.id);
   }
@@ -14,6 +11,7 @@ const Scoreboard = (props) => {
 
   function getFilter(e) {
     let option = e.target.value;
+    props.fun.setFilterOption(option);
     props.fun.orderList(option);
   }
 
@@ -26,7 +24,7 @@ const Scoreboard = (props) => {
           <option value="desc">DESC</option>
         </select>
       </form>
-      {names.map((el, idx) => (
+      {props.pool.map((el, idx) => (
         <div
           key={idx}
           style={{
@@ -40,19 +38,19 @@ const Scoreboard = (props) => {
             width: "200px",
           }}
         >
-          <p>{el}</p>
+          <p>{el.name}</p>
           <button
             style={{ width: "20px", height: "20px" }}
             onClick={setDecrement}
-            id={idx}
+            id={el.id}
           >
             -
           </button>
-          <p>{score[idx]}</p>
+          <p>{el.score}</p>
           <button
             style={{ width: "20px", height: "20px" }}
             onClick={setIncrement}
-            id={idx}
+            id={el.id}
           >
             +
           </button>

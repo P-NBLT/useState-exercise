@@ -1,69 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Paragraph, IndexPage } from "../index";
 
 const Pagination = (props) => {
-  const [page, setPage] = useState([
-    { idx: 1, state: true },
-    { idx: 2, state: false },
-    { idx: 3, state: false },
-    { idx: 4, state: false },
-    { idx: 5, state: false },
-    { idx: 6, state: false },
-  ]);
+  // props.activePage props.setActivePage props.lastPage
+  const [pages, setPages] = useState(Array(props.lastPage).fill({}));
+
+  useEffect(() => {
+    let copy = [...pages];
+    copy = copy.map((el, index) => {
+      el = { idx: index + 1 };
+      return el;
+    });
+    setPages(copy);
+  }, []);
+
+  // const [pages, setPages] = useState([
+  //   { idx: 1, state: true },
+  //   { idx: 2, state: false },
+  //   { idx: 3, state: false },
+  //   { idx: 4, state: false },
+  //   { idx: 5, state: false },
+  //   { idx: 6, state: false },
+  // ]);
 
   const getUpdateActive = (current) => {
-    let copy = [...page];
-    let index = copy.findIndex((el) => el.state === true);
-    copy[index].state = false;
-    setPage((current) => [...current, copy]);
-    copy[current].state = true;
-    setPage(copy);
+    let copy = [...pages];
+    props.setActivePage(copy[current].idx);
   };
 
   const backwards = () => {
-    const copy = [...page];
-    let activeIndex = copy.findIndex((el) => el.state == true);
-
+    const copy = [...pages];
+    let activeIndex = copy.findIndex((el) => el.idx == props.activePage);
     if (activeIndex > 0) {
-      copy[activeIndex].state = false;
-      copy[activeIndex - 1].state = true;
-      setPage(copy);
+      props.setActivePage(copy[activeIndex - 1].idx);
     }
   };
   const forward = () => {
-    const copy = [...page];
-    let activeIndex = copy.findIndex((el) => el.state == true);
-
-    if (activeIndex < page.length - 1) {
-      copy[activeIndex].state = false;
-      copy[activeIndex + 1].state = true;
-      setPage(copy);
+    const copy = [...pages];
+    let activeIndex = copy.findIndex((el) => el.idx == props.activePage);
+    if (activeIndex < pages.length - 1) {
+      props.setActivePage(copy[activeIndex + 1].idx);
     }
   };
 
   return (
     <div style={{ display: "flex", columnGap: "10px", marginTop: "100px" }}>
       <button onClick={backwards}>{`<<`}</button>
-      {page.map((el, idx) => {
-        let backgroundColor;
-        let color;
-
-        if (page[idx].state == true) {
-          backgroundColor = "blue";
-          color = "white";
-        } else if (page[idx].state == false) {
-          backgroundColor = "pink";
-          color = "black";
-        }
-
+      {pages.map((el, idx) => {
+        let status = props.activePage === idx + 1 ? true : false;
         return (
           <IndexPage
             key={idx}
             page={el.idx}
             dataId={idx}
-            styles={{ backgroundColor, color }}
             fun={{ getUpdateActive }}
+            status={status}
           >
             el
           </IndexPage>
@@ -75,7 +67,7 @@ const Pagination = (props) => {
 };
 
 // const Pagination = (props) => {
-//   const [page, setPage] = useState([1, 2, 3, 4, 5, 6]);
+//   const [page, setPages] = useState([1, 2, 3, 4, 5, 6]);
 
 //   return (
 //     <div style={{ display: "flex", columnGap: "10px", marginTop: "100px" }}>

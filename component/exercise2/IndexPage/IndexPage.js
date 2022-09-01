@@ -1,11 +1,16 @@
 import React, { Children } from "react";
 import PropTypes from "prop-types";
 import Paragraph from "../Paragraph/Paragraph";
+import styles from "./IndexPage.module.css";
 
 const IndexPage = ({ children, ...props }) => {
+  let design;
+  if (props.status) {
+    design = "active";
+  } else design = "inactive";
+
   function UpdateActive(e) {
-    let clickedElement = e.target.closest("div").dataset.id;
-    props.fun.getUpdateActive(clickedElement);
+    props.fun.getUpdateActive(props.dataId);
   }
 
   return (
@@ -14,11 +19,9 @@ const IndexPage = ({ children, ...props }) => {
         style={{
           border: "2px solid grey",
           padding: "5px 10px",
-          backgroundColor: props.styles.backgroundColor,
-          color: props.styles.color,
         }}
         data-id={props.dataId}
-        data-active={props.dataActive}
+        className={`${styles[design]}`}
         onClick={UpdateActive}
       >
         <Paragraph>{props.page}</Paragraph>

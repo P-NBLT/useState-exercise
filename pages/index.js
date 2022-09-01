@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
@@ -5,6 +6,9 @@ import { Player } from "../component/";
 import { Pagination } from "../component/exercise2";
 
 export default function Home() {
+  const [activePage, setActivePage] = useState(1);
+  const [lastPage, setLastPage] = useState(8);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,7 +18,11 @@ export default function Home() {
       </Head>
 
       <Player />
-      <Pagination />
+      <Pagination
+        activePage={activePage}
+        setActivePage={setActivePage}
+        lastPage={lastPage}
+      />
     </div>
   );
 }
