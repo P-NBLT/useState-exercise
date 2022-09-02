@@ -15,15 +15,6 @@ const Pagination = (props) => {
     setPages(copy);
   }, []);
 
-  // const [pages, setPages] = useState([
-  //   { idx: 1, state: true },
-  //   { idx: 2, state: false },
-  //   { idx: 3, state: false },
-  //   { idx: 4, state: false },
-  //   { idx: 5, state: false },
-  //   { idx: 6, state: false },
-  // ]);
-
   const getUpdateActive = (current) => {
     let copy = [...pages];
     props.setActivePage(copy[current].idx);
@@ -66,37 +57,7 @@ const Pagination = (props) => {
   );
 };
 
-// const Pagination = (props) => {
-//   const [page, setPages] = useState([1, 2, 3, 4, 5, 6]);
-
-//   return (
-//     <div style={{ display: "flex", columnGap: "10px", marginTop: "100px" }}>
-//       {page.map((el, idx) => {
-//         let dataActive = false;
-//         let backgroundColor = "white";
-//         let color = "black";
-//         if (idx == 0) {
-//           dataActive = true;
-//           backgroundColor = "blue";
-//           color = "white";
-//         }
-
-//         return (
-//           <IndexPage
-//             key={idx}
-//             page={el}
-//             dataId={idx}
-//             dataActive={dataActive}
-//             styles={{ backgroundColor, color }}
-//           >
-//             el
-//           </IndexPage>
-//         );
-//       })}
-//     </div>
-//   );
-// };
-
+//
 Pagination.propTypes = {};
 
 export default Pagination;

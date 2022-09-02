@@ -4,6 +4,8 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { Player } from "../component/";
 import { Pagination } from "../component/exercise2";
+import Pokemon from "../component/exercise3/Pokemon";
+import FetchContent from "../component/exercise3/useEffect/FetchContent";
 
 export default function Home() {
   const [activePage, setActivePage] = useState(1);
@@ -18,11 +20,8 @@ export default function Home() {
       </Head>
 
       <Player />
-      <Pagination
-        activePage={activePage}
-        setActivePage={setActivePage}
-        lastPage={lastPage}
-      />
+
+      <Pokemon />
     </div>
   );
 }
