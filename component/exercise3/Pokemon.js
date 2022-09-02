@@ -14,9 +14,6 @@ const Pokemon = (props) => {
 
   const { data, isLoading, error } = useFetch(url, [activePage]);
 
-  console.log("data :", data);
-  console.log(error);
-
   return (
     <div>
       <Pagination

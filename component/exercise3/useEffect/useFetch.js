@@ -1,13 +1,10 @@
 import { useState, useEffect } from "react";
 
-const useFetch = (url, trigger = null) => {
+const useFetch = (url, dependencies = []) => {
   //   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
-  if (trigger) {
-    trigger = trigger.join(", ");
-  }
 
   useEffect(() => {
     const AbortCont = new AbortController();
@@ -30,7 +27,7 @@ const useFetch = (url, trigger = null) => {
     fetchData();
 
     return () => AbortCont.abort();
-  }, [trigger]);
+  }, dependencies);
 
   return { data, isLoading, error };
 };
