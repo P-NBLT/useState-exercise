@@ -13,7 +13,7 @@ const Pokemon = (props) => {
   }`;
 
   const { data, isLoading, error } = useFetch(url, [activePage]);
-
+  console.log("Rerender 2");
   return (
     <div>
       <Pagination
