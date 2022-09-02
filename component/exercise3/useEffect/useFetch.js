@@ -6,7 +6,7 @@ const useFetch = (url, trigger = null) => {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
   if (trigger) {
-    trigger = trigger.join(" ");
+    trigger = trigger.join(", ");
   }
 
   useEffect(() => {

@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import FetchContent from "./useEffect/FetchContent";
+
 import { Pagination } from "../exercise2";
+import useFetch from "./useEffect/useFetch";
 
 const Pokemon = (props) => {
   const [activePage, setActivePage] = useState(1);
   const [lastPage, setLastPage] = useState(12);
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
 
-  const url = `https://pokeapi.co/api/v2/pokemon/?limit=100&offset=${
+  const url = `https://deelay.me/800/https://pokeapi.co/api/v2/pokemon/?limit=100&offset=${
     (activePage - 1) * 100
   }`;
+
+  const { data, isLoading, error } = useFetch(url, [activePage]);
 
   console.log("data :", data);
   console.log(error);
@@ -23,12 +23,6 @@ const Pokemon = (props) => {
         activePage={activePage}
         setActivePage={setActivePage}
         lastPage={lastPage}
-      />
-      <FetchContent
-        activePage={activePage}
-        fun={{ setData, setError, setIsLoading }}
-        data={data}
-        url={url}
       />
       {error ? (
         <p>Something went wrong</p>
