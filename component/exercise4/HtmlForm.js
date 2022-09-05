@@ -149,7 +149,7 @@ function reducer(state, action) {
         ...state,
         email: { ...state.email, errorMessage: action.payload },
       };
-    case "SET_ERROR_MESSAGE_postcode":
+    case "SET_ERROR_MESSAGE_postCode":
       return {
         ...state,
         postCode: { ...state.postCode, errorMessage: action.payload },
@@ -178,22 +178,6 @@ const initialState = {
   postCode: { value: "", class: " ", errorMessage: false },
   city: { value: "", class: " ", errorMessage: false },
   bank: { value: "", class: " ", errorMessage: false },
-  //   fnameClass: " ",
-  //   lnameClass: " ",
-  //   streetClass: " ",
-  //   streetNumberClass: " ",
-  //   emailClass: " ",
-  //   postcodeClass: " ",
-  //   cityClass: " ",
-  //   bankClass: " ",
-  //   fnameErrorMessage: false,
-  //   lnameErorMessage: false,
-  //   streetErrorMessage: false,
-  //   streetNumberErrorMessage: false,
-  //   emailErrorMessage: false,
-  //   postcodeErrorMessage: false,
-  //   cityErrorMessage: false,
-  //   bankErrorMessage: false,
 };
 
 const HtmlForm = (props) => {
@@ -210,7 +194,8 @@ const HtmlForm = (props) => {
     let regEx;
 
     if (string == "") {
-      return dispatch({ type: `SET_WARNING_${id}_className`, payload: "" });
+      dispatch({ type: `SET_WARNING_${id}_className`, payload: " " });
+      return dispatch({ type: `GET_${id}`, payload: string });
     }
     if (id == "fname" || id == "lname") {
       regEx = /^[a-z|A-Z][a-z]{1,10}-?\s?[a-zA-Z]{0,10}\s*/;
@@ -251,91 +236,9 @@ const HtmlForm = (props) => {
         v.class.includes("HtmlForm_warning__9vxRu") ||
         v.class.includes(" ")
       ) {
-        if (k === "fname") {
-          console.log("why not");
-          dispatch({
-            type: `SET_ERROR_MESSAGE_fname`,
-            payload: true,
-          });
-        } else if (k === "lname") {
-          dispatch({
-            type: `SET_ERROR_MESSAGE_lname`,
-            payload: true,
-          });
-        } else if (k === "street") {
-          dispatch({
-            type: `SET_ERROR_MESSAGE_street`,
-            payload: true,
-          });
-        } else if (k === "streetNumber") {
-          dispatch({
-            type: `SET_ERROR_MESSAGE_streetNumber`,
-            payload: true,
-          });
-        } else if (k === "email") {
-          dispatch({
-            type: `SET_ERROR_MESSAGE_email`,
-            payload: true,
-          });
-        } else if (k === "postCode") {
-          dispatch({
-            type: `SET_ERROR_MESSAGE_postcode`,
-            payload: true,
-          });
-        } else if (k === "city") {
-          dispatch({
-            type: `SET_ERROR_MESSAGE_city`,
-            payload: true,
-          });
-        } else if (k === "bank") {
-          dispatch({
-            type: `SET_ERROR_MESSAGE_bank`,
-            payload: true,
-          });
-        }
+        dispatch({ type: `SET_ERROR_MESSAGE_${k}`, payload: true });
       } else {
-        if (k === "fname") {
-          console.log("why not");
-          dispatch({
-            type: `SET_ERROR_MESSAGE_fname`,
-            payload: false,
-          });
-        } else if (k === "lname") {
-          dispatch({
-            type: `SET_ERROR_MESSAGE_lname`,
-            payload: false,
-          });
-        } else if (k === "street") {
-          dispatch({
-            type: `SET_ERROR_MESSAGE_street`,
-            payload: false,
-          });
-        } else if (k === "streetNumber") {
-          dispatch({
-            type: `SET_ERROR_MESSAGE_streetNumber`,
-            payload: false,
-          });
-        } else if (k === "email") {
-          dispatch({
-            type: `SET_ERROR_MESSAGE_email`,
-            payload: false,
-          });
-        } else if (k === "postCode") {
-          dispatch({
-            type: `SET_ERROR_MESSAGE_postcode`,
-            payload: false,
-          });
-        } else if (k === "city") {
-          dispatch({
-            type: `SET_ERROR_MESSAGE_city`,
-            payload: false,
-          });
-        } else if (k === "bank") {
-          dispatch({
-            type: `SET_ERROR_MESSAGE_bank`,
-            payload: false,
-          });
-        }
+        dispatch({ type: `SET_ERROR_MESSAGE_${k}`, payload: false });
       }
     });
   }
@@ -354,7 +257,9 @@ const HtmlForm = (props) => {
         className={state.fname.class}
       ></input>
       {state.fname.errorMessage ? (
-        <p className={styles.errorMessage}>Invalid Input</p>
+        <p className={styles.errorMessage}>
+          Invalid Input: Only alphabetic character and/or space and -
+        </p>
       ) : null}
       <label htmlFor="lname"></label>
       <input
