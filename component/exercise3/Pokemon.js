@@ -13,7 +13,7 @@ const Pokemon = (props) => {
   }`;
 
   const { data, isLoading, error } = useFetch(url, [activePage]);
-  console.log("Rerender 2");
+
   return (
     <div>
       <Pagination
@@ -22,7 +22,7 @@ const Pokemon = (props) => {
         lastPage={lastPage}
       />
       {error ? (
-        <p>Something went wrong</p>
+        <p>{error}</p>
       ) : isLoading ? (
         <p>Loading</p>
       ) : (

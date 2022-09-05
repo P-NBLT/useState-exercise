@@ -1,26 +1,44 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "REQUEST_ERROR":
+      return { ...state, error: action.payload, isLoading: false };
+    case "REQUEST_LOADING":
+      return { ...state, error: null, isLoading: true };
+    case "REQUEST_DATA":
+      return { ...state, data: action.payload, isLoading: false, error: null };
+    default:
+      return state;
+  }
+}
+const initialState = {
+  isLoading: true,
+  error: null,
+  data: null,
+};
 
 const useFetch = (url, dependencies = []) => {
-  const [state, setState] = useState({
-    isLoading: true,
-    error: null,
-    data: null,
-  });
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     const AbortCont = new AbortController();
     async function fetchData() {
       try {
-        setState({ ...state, isLoading: true, error: null });
+        dispatch({ type: "REQUEST_LOADING" });
 
         const response = await fetch(url, { signal: AbortCont.signal });
         const json = await response.json();
-
-        setState({ ...state, data: json, isLoading: false });
+        console.log(json);
+        dispatch({ type: "REQUEST_DATA", payload: json });
       } catch (err) {
         if (err.name === "AbortError") {
+          dispatch({
+            type: "REQUEST_ERROR",
+            payload: "you are clicking to fast",
+          });
         } else {
-          setState({ ...state, error: err, isLoading: false });
+          dispatch({ type: "REQUEST_ERROR", payload: err });
         }
       }
     }

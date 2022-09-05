@@ -1,0 +1,17 @@
+.warning {
+  border: 2px solid orange;
+}
+
+.warning::placeholder {
+  text-align: right;
+  color: orange;
+  opacity: 1;
+}
+
+.error {
+  border: 2px solid red;
+}
+
+.errorMessage {
+  color: red;
+}
