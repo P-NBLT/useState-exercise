@@ -5,6 +5,8 @@ import styles from "../styles/Home.module.css";
 import { HtmlForm, Player } from "../component/";
 import { Pagination } from "../component/exercise2";
 import Pokemon from "../component/exercise3/Pokemon";
+import UseForm from "../component/exercise4/UseForm";
+import GameProvider from "../component/excercise1/GameContext/GameContext";
 
 export default function Home() {
   const [activePage, setActivePage] = useState(1);
@@ -21,7 +23,12 @@ export default function Home() {
       <Player />
 
       <Pokemon /> */}
-      <HtmlForm />
+      {/* <HtmlForm /> */}
+      {/* <UseForm /> */}
+
+      <GameProvider>
+        <Player />
+      </GameProvider>
     </div>
   );
 }

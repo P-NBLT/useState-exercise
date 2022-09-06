@@ -232,10 +232,7 @@ const HtmlForm = (props) => {
     let copy = { ...state };
     Object.entries(copy).map(([k, v]) => {
       console.log(k, v);
-      if (
-        v.class.includes("HtmlForm_warning__9vxRu") ||
-        v.class.includes(" ")
-      ) {
+      if (["HtmlForm_warning__9vxRu", " "].includes(v.class)) {
         dispatch({ type: `SET_ERROR_MESSAGE_${k}`, payload: true });
       } else {
         dispatch({ type: `SET_ERROR_MESSAGE_${k}`, payload: false });

@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { usePlayers, useFilter } from "../GameContext/GameContext";
 
 const InputPlayer = (props) => {
   const [name, setName] = useState("");
   const [score, setScore] = useState("");
+
+  const players = usePlayers();
+  const filter = useFilter();
 
   const getName = (e) => {
     setName(e.target.value);
@@ -14,8 +18,8 @@ const InputPlayer = (props) => {
 
   function addPlayer(e) {
     e.preventDefault();
-    props.fun.addNewPlayer(name, Number(score));
-    props.fun.orderList(props.filter);
+    players.addNewPlayer(name, Number(score));
+    players.orderList(filter.filterOption);
   }
   return (
     <div>

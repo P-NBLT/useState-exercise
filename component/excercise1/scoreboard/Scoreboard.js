@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { usePlayers, useFilter } from "../GameContext/GameContext";
 
 const Scoreboard = (props) => {
+  const players = usePlayers();
+  const filter = useFilter();
+
   function setDecrement(e) {
-    props.fun.decrement(e.target.id);
+    players.decrement(e.target.id);
   }
   function setIncrement(e) {
-    props.fun.increment(e.target.id);
+    players.increment(e.target.id);
   }
 
   function getFilter(e) {
     let option = e.target.value;
-    props.fun.setFilterOption(option);
-    props.fun.orderList(option);
+    filter.setFilterOption(option);
+    players.orderList(option);
   }
 
   return (
@@ -24,7 +28,7 @@ const Scoreboard = (props) => {
           <option value="desc">DESC</option>
         </select>
       </form>
-      {props.pool.map((el, idx) => (
+      {players.players.map((el, idx) => (
         <div
           key={idx}
           style={{
